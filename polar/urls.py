@@ -21,7 +21,7 @@ from django.urls import path, include # 'include' will add up app-level urls
 urlpatterns = [
     path('admin/', admin.site.urls),
     # App routes will be defined below. use the example format
-    # path('<app url>/', include('<app name>.urls', namespace='<app name>'),
+    # path('<app url>/', include('<app name>.urls', namespace='<app name>')),
     # e.g
-    # path('profile/', include('user_profile.urls', namespace='user_profile'),
+    # path('profile/', include('user_profile.urls', namespace='user_profile')),
 ]
