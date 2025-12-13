@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from .forms import UserProfileForm
 from .models import UserProfile
 
@@ -15,12 +16,13 @@ def new_profile(request):
 def view_profile(request):
     """
     This endpoint displays user's profile. The frontend can access data using example syntax below:
-      <h1>{{ profile.user.username }}'s Profile</h1>
-      <p>Bio: {{ profile.bio }}</p>
+    <h1>{{ profile.user.username }}'s Profile</h1>
+    <p>Bio: {{ profile.bio }}</p>
     """
 
-    # We are only fetching the profile tied to the person currently logged in, an nothing else, even if someone tries to snoop around.
-    profile = get_object_or_404(UserProfile, user=request.user)
+    # Fetch the profile tied to the person currently logged in. Create new one if missing.
+    profile, created = UserProfile.objects.get_or_create(user=request.user)
+
     context = {"profile": profile}
 
     return render(request, "profile_view.html", context)
@@ -36,9 +38,12 @@ def edit_profile(request):
 
     if request.method == "POST":
         form = UserProfileForm(request.POST, request.FILES, instance=profile)
+
         if form.is_valid():
             form.save()
+            messages.success(request, "Profile updated successfully!")
             return redirect("user_profile:view_profile")
+
     else:
         form = UserProfileForm(instance=profile)
 
