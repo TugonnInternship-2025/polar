@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     # Custom apps should be defined below:
+    'hire',
     
 ]
 
