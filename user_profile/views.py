@@ -5,9 +5,13 @@ from .forms import UserProfileForm
 from .models import UserProfile
 
 
+def homepage(request):
+    return render(request, "user_profile/index.html")
+
+
 def new_profile(request):
     """
-    This won't be needed as a signal can be setup to trigger a profile creation upon new user signup
+    This is not needed as a signal is already setup to trigger a profile creation upon new user signup
     """
     pass
 

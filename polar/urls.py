@@ -17,6 +17,7 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include  # 'include' will add up app-level urls
+from user_profile import views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -25,4 +26,5 @@ urlpatterns = [
     # e.g
     # path('profile/', include('user_profile.urls', namespace='user_profile')),
     path("profile/", include("user_profile.urls", namespace="user_profile")),
+    path("", views.homepage, name="homepage"),
 ]

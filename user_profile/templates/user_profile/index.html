@@ -1,0 +1,15 @@
+{% extends "user_profile/base.html" %}
+{% block title %}Polar Homepafe{% endblock title %}
+{% block content %}
+
+<section>
+  <div>
+    <p>
+      Hi, check you profile with the link below. If you're not logged in, you'll get a 404.
+    </p>
+
+    <a href="{% url 'user_profile:view_profile' %}">View profile</a>
+  </div>
+</section>
+
+{% endblock content %}
