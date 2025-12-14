@@ -25,6 +25,6 @@ urlpatterns = [
     # path('<app url>/', include('<app name>.urls', namespace='<app name>')),
     # e.g
     # path('profile/', include('user_profile.urls', namespace='user_profile')),
-    path("profile/", include("user_profile.urls", namespace="user_profile")),
+    path("profile", include("user_profile.urls", namespace="user_profile")),
     path("", views.homepage, name="homepage"),
 ]

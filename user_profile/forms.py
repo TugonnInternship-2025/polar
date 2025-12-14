@@ -1,10 +1,10 @@
 from django.forms import ModelForm
-from cloudinary.forms import CloudinaryFileField
 from .models import UserProfile
+# from cloudinary.forms import CloudinaryFileField
 
 
 class UserProfileForm(ModelForm):
-    image = CloudinaryFileField()
+    # image = CloudinaryFileField()
 
     class Meta:
         model = UserProfile
