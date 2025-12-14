@@ -6,9 +6,9 @@ name = "pypi"
 [packages]
 django = "*"
 cloudinary = "*"
-python-dotenv = "*"
 django-cloudinary-storage = "*"
 tzdata = "*"
+python-dotenv = "*"
 
 [dev-packages]
 
