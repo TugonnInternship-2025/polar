@@ -8,4 +8,4 @@ class UserProfileForm(ModelForm):
 
     class Meta:
         model = UserProfile
-        fields = ["image", "bio", "location", "phone_number", "portfolio_url"]
+        fields = ["phone_number", "location", "portfolio_url", "bio", "image"]

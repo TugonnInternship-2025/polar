@@ -1,0 +1,31 @@
+{% extends "user_profile/base.html" %}
+{% block title %}Update User Profile{% endblock title %}
+{% block content %}
+
+<section>
+  <div>
+    <h1>Greetings {% firstof profile.user.first_name profile.user.username %}</h1>
+    <h2>
+      Update your info below.
+    </h2>
+
+    <form action="{% url "user_profile:edit_profile" %}" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" value="Update Info">
+    </form>
+
+    <p>
+      Here is your picture:
+    </p>
+
+    <img src="{{ profile.image.url }}" style="height: 240px">
+    
+        <div>
+      <a href="{% url 'user_profile:view_profile' %}">Go back to profile</a>
+    </div>
+
+  </div>
+</section>
+
+{% endblock content %}
