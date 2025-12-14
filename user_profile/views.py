@@ -25,7 +25,7 @@ def view_profile(request):
 
     context = {"profile": profile}
 
-    return render(request, "profile_view.html", context)
+    return render(request, "user_profile/profile_view.html", context)
 
 
 @login_required
@@ -49,4 +49,4 @@ def edit_profile(request):
 
     context = {"profile": profile, "form": form}
 
-    return render(request, "profile_edit.html", context)
+    return render(request, "user_profile/profile_edit.html", context)
