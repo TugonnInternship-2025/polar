@@ -13,6 +13,12 @@ class HireModel(models.Model):
         (STATUS_CANCELLED, 'Cancelled'),
     ]
     
+    ALLOWED_TRANSITIONS = {
+        STATUS_PENDING: [STATUS_COMPLETED, STATUS_CANCELLED],
+        STATUS_COMPLETED: [],
+        STATUS_CANCELLED: [],
+    }
+    
     client = models.ForeignKey(User,on_delete=models.CASCADE, related_name='hires_made')
     talent = models.ForeignKey(User,on_delete=models.CASCADE, related_name='hires_gotten')
     talent_name = models.CharField(max_length=255)
@@ -22,6 +28,9 @@ class HireModel(models.Model):
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=STATUS_PENDING)
     hired_at = models.DateTimeField(auto_now_add=True)
     completed_at = models.DateTimeField(null=True,blank=True)
+    
+    def can_transition_to(self,new_status):
+        return new_status in self.ALLOWED_TRANSITIONS[self.status]
     
     def __str__(self):
         return f"Hire {self.id} - {self.talent_name} - ({self.status})"
