@@ -26,12 +26,14 @@ class CreateHireView(View):
         if request.user.id == talent.id:
             return JsonResponse({"error": "You cannot hire yourself"},status=400)
         
+        profile = getattr(talent, "userprofile", None)
+        
         hire = HireModel.objects.create(
             client = request.user,
             talent = talent,
             talent_name = talent.username,
-            talent_location = "",
-            talent_contact = "",
+            talent_location=profile.location if profile else "",
+            talent_contact=profile.phone_number if profile else "",
             talent_email = talent.email,
             status = HireModel.STATUS_PENDING
         )
@@ -118,6 +120,9 @@ class GetHireListView(View):
                 "client": hire.client.username,
                 "talent": hire.talent.username,
                 "talent_name": hire.talent_name,
+                "location": hire.talent.userprofile.location if hasattr(hire.talent, "userprofile") else "",
+                "phone_number": hire.talent.userprofile.phone_number if hasattr(hire.talent, "userprofile") else "",
+                "portfolio_url": hire.talent.userprofile.portfolio_url if hasattr(hire.talent, "userprofile") else "",
                 "status": hire.status,
                 "hired_at": hire.hired_at,
                 "completed_at": hire.completed_at,
@@ -144,6 +149,9 @@ class GetHireView(View):
             "client": hire.client.username,
             "talent": hire.talent.username,
             "talent_name": hire.talent_name,
+            "location": hire.talent.userprofile.location if hasattr(hire.talent, "userprofile") else "",
+            "phone_number": hire.talent.userprofile.phone_number if hasattr(hire.talent, "userprofile") else "",
+            "portfolio_url": hire.talent.userprofile.portfolio_url if hasattr(hire.talent, "userprofile") else "",
             "status": hire.status,
             "hired_at": hire.hired_at,
             "completed_at": hire.completed_at,
