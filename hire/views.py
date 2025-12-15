@@ -85,3 +85,71 @@ class UpdateHireStatusView(View):
                 "status":hire.status
             }
         },status = 200)
+class GetHireListView(View):
+    def get(self, request,user_id=None):
+        if not request.user.is_authenticated:
+            return JsonResponse({"error": "User not logged in"}, status=401)
+
+        if user_id:
+            try:
+                user = User.objects.get(id=user_id)
+            except User.DoesNotExist:
+                return JsonResponse({"error": "User not found"}, status=404)
+        else:
+            user = request.user
+
+        hires = HireModel.objects.filter(client=user) | HireModel.objects.filter(talent=user)
+
+        role = request.GET.get("role")
+        if role == "client":
+            hires = hires.filter(client=user)
+        elif role == "talent":
+            hires = hires.filter(talent=user)
+
+        status = request.GET.get("status")
+        if status:
+            hires = hires.filter(status=status)
+        else:
+            hires = hires.exclude(status=HireModel.STATUS_CANCELLED)
+
+        data = [
+            {
+                "id": hire.id,
+                "client": hire.client.username,
+                "talent": hire.talent.username,
+                "talent_name": hire.talent_name,
+                "status": hire.status,
+                "hired_at": hire.hired_at,
+                "completed_at": hire.completed_at,
+            }
+            for hire in hires
+        ]
+
+        return JsonResponse({"message":"hires fetched successfully","data": data}, status=200)
+
+class GetHireView(View):
+    def get (self,request,hire_id):
+        if not request.user.is_authenticated:
+            return JsonResponse({"error": "User not logged in"}, status=401)
+        try:
+            hire = HireModel.objects.get(id=hire_id)
+        except HireModel.DoesNotExist:
+            return JsonResponse({"error": "Hire not found"}, status=404)
+        
+        if request.user not in [hire.client, hire.talent]:
+            return JsonResponse({"error": "Permission denied"}, status=403)
+
+        data = {
+            "id": hire.id,
+            "client": hire.client.username,
+            "talent": hire.talent.username,
+            "talent_name": hire.talent_name,
+            "status": hire.status,
+            "hired_at": hire.hired_at,
+            "completed_at": hire.completed_at,
+        }
+
+        return JsonResponse({"message":"hire data fetched successfuly","data": data}, status=200)
+        
+        
+            
