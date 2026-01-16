@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'rest_framework',
     
     # 3rd Party Apps/Libraries
     'cloudinary_storage', # Should load before django.contrib.staticfiles if staticfiles will load from cloudinary
@@ -48,6 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     # Custom apps should be defined below:
+    'featureProfile',
     
 ]
 

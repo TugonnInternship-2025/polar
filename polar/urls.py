@@ -24,4 +24,6 @@ urlpatterns = [
     # path('<app url>/', include('<app name>.urls', namespace='<app name>')),
     # e.g
     # path('profile/', include('user_profile.urls', namespace='user_profile')),
+
+    path('api/', include('featureProfile.urls')),
 ]
