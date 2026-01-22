@@ -4,8 +4,8 @@ from . import views
 app_name = "user_skill"
 
 urlpatterns = [
-    # path("", views.view_profile, name="view_profile"),
-    # path("/edit", views.edit_profile, name="edit_profile"),
-    # No need for new profile URL, as django signal can quickly setup a new profile upon user creation
-    # path("new/", views.new_profile, name="new_profile"),
+    path("dashboard/", views.user_skill_dashboard, name="user_skill_dashboard"),
+    path("superuser/", views.superuser_dashboard, name="superuser_dashboard"),
+    path("edit/<int:pk>/", views.edit_skill, name="edit_skill"),
+    path("delete/<int:pk>/", views.delete_skill, name="delete_skill"),
 ]

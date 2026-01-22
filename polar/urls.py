@@ -24,5 +24,5 @@ urlpatterns = [
     # path('<app url>/', include('<app name>.urls', namespace='<app name>')),
     # e.g
     # path('profile/', include('user_profile.urls', namespace='user_profile')),
-    # path("user-skill", include("user_skill.urls", namespace="user_skill")),
+    path("user-skill/", include("user_skill.urls", namespace="user_skill")),
 ]

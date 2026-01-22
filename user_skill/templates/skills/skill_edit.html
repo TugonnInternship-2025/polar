@@ -1,0 +1,12 @@
+<div class="container">
+    <h2>Edit Skill</h2>
+    <div class="card p-4" style="max-width: 500px;">
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            
+            <button type="submit" class="btn btn-primary">Update</button>
+            <a href="{% url 'user_skill:user_skill_dashboard' %}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
