@@ -75,6 +75,29 @@ Follow these steps when adding a new feature module:
    python manage.py migrate
 ```
 
+## Add the required environment variables
+
+### Django secret key
+```bash
+   SECRET_KEY
+```
+### Email configuration for sending verification emails
+```bash
+   EMAIL_HOST_USER
+   EMAIL_HOST_PASSWORD
+```
+
+### Cloudinary
+```bash
+   CLOUDINARY_URL
+```
+
+### Google OAuth credentials
+```bash
+   SOCIAL_AUTH_GOOGLE_CLIENT_ID
+   SOCIAL_AUTH_GOOGLE_SECRET
+```
+
 ## User Model
 
 This project uses Django's default User model with no custom fields.
